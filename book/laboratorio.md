@@ -2,7 +2,7 @@
 
 La aplicación ejecuta Python en vivo en el navegador. El código permanece
 oculto en la interfaz: solo se muestran cuatro sliders, la gráfica de curvas de
-nivel, la ruta animada y el cambio en el costo.
+nivel, la ruta animada sobre el mapa, la superficie 3D y el cambio en el costo.
 
 <iframe
   src="lab/index.html"

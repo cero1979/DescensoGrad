@@ -1,5 +1,7 @@
 const canvas = document.querySelector("#chart");
 const context = canvas.getContext("2d");
+const surfaceCanvas = document.querySelector("#surface");
+const surfaceContext = surfaceCanvas.getContext("2d");
 const status = document.querySelector("#status");
 const summary = document.querySelector("#summary");
 const animateButton = document.querySelector("#animate");
@@ -30,6 +32,78 @@ const plot = {
 
 function mapX(value) {
   return plot.left + (value / 24) * (plot.right - plot.left);
+}
+
+function surfacePoint(x, y, cost) {
+  return {
+    x: 480 + (x - 12) * 19 - (y - 8) * 11,
+    y: 385 - (x - 12) * 6 - (y - 8) * 4 - (cost - 100) * 0.62,
+  };
+}
+
+function drawSurface3D(route, visiblePoints = route.length) {
+  surfaceContext.fillStyle = "#f8fafc";
+  surfaceContext.fillRect(0, 0, surfaceCanvas.width, surfaceCanvas.height);
+  surfaceContext.font = "14px system-ui";
+  surfaceContext.fillStyle = "#526176";
+  surfaceContext.fillText("Altura = costo semanal J(x,y)", 28, 30);
+
+  for (let x = 0; x <= 24; x += 2) {
+    surfaceContext.beginPath();
+    for (let y = 0; y <= 16; y += 0.5) {
+      const point = surfacePoint(x, y, (x - 12) ** 2 + 2 * (y - 8) ** 2 + 100);
+      if (y === 0) surfaceContext.moveTo(point.x, point.y);
+      else surfaceContext.lineTo(point.x, point.y);
+    }
+    surfaceContext.strokeStyle = "rgba(14, 116, 144, 0.32)";
+    surfaceContext.lineWidth = 1;
+    surfaceContext.stroke();
+  }
+
+  for (let y = 0; y <= 16; y += 2) {
+    surfaceContext.beginPath();
+    for (let x = 0; x <= 24; x += 0.5) {
+      const point = surfacePoint(x, y, (x - 12) ** 2 + 2 * (y - 8) ** 2 + 100);
+      if (x === 0) surfaceContext.moveTo(point.x, point.y);
+      else surfaceContext.lineTo(point.x, point.y);
+    }
+    surfaceContext.strokeStyle = "rgba(14, 116, 144, 0.32)";
+    surfaceContext.stroke();
+  }
+
+  const minimum = surfacePoint(12, 8, 100);
+  surfaceContext.fillStyle = "#15803d";
+  surfaceContext.beginPath();
+  surfaceContext.arc(minimum.x, minimum.y, 7, 0, 2 * Math.PI);
+  surfaceContext.fill();
+  surfaceContext.fillText("mínimo (12, 8, 100)", minimum.x + 12, minimum.y - 8);
+
+  const points = route.slice(0, visiblePoints);
+  if (!points.length) return;
+  surfaceContext.strokeStyle = "#dc2626";
+  surfaceContext.lineWidth = 4;
+  surfaceContext.beginPath();
+  points.forEach((item, index) => {
+    const point = surfacePoint(item.x, item.y, item.cost);
+    if (index === 0) surfaceContext.moveTo(point.x, point.y);
+    else surfaceContext.lineTo(point.x, point.y);
+  });
+  surfaceContext.stroke();
+
+  const last = points.at(-1);
+  const current = surfacePoint(last.x, last.y, last.cost);
+  surfaceContext.fillStyle = "#dc2626";
+  surfaceContext.beginPath();
+  surfaceContext.arc(current.x, current.y, 9, 0, 2 * Math.PI);
+  surfaceContext.fill();
+  surfaceContext.fillStyle = "#172033";
+  surfaceContext.fillText(
+    `ronda ${points.length - 1}: costo ${last.cost.toFixed(2)}`,
+    current.x + 14,
+    current.y - 12,
+  );
+  surfaceContext.fillText("publicidad x", 690, 505);
+  surfaceContext.fillText("inventario y", 175, 455);
 }
 
 function mapY(value) {
@@ -147,6 +221,7 @@ async function calculateRoute() {
   );
   currentRoute = JSON.parse(result);
   drawRoute(currentRoute);
+  drawSurface3D(currentRoute);
 
   const first = currentRoute[0];
   const last = currentRoute.at(-1);
@@ -160,9 +235,11 @@ function animateRoute() {
   clearInterval(animationTimer);
   let visible = 1;
   drawRoute(currentRoute, visible);
+  drawSurface3D(currentRoute, visible);
   animationTimer = setInterval(() => {
     visible += 1;
     drawRoute(currentRoute, visible);
+    drawSurface3D(currentRoute, visible);
     if (visible >= currentRoute.length) clearInterval(animationTimer);
   }, 480);
 }

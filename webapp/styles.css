@@ -116,6 +116,12 @@ canvas {
   height: auto;
 }
 
+h2 {
+  margin: 18px 20px 8px;
+  color: #172033;
+  font-size: 1.2rem;
+}
+
 .summary {
   min-height: 28px;
   margin: 0;
