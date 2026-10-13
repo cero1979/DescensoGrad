@@ -19,16 +19,17 @@ html:
     Material didáctico sobre descenso del gradiente.
 
 sphinx:
+  local_extensions:
+    dedupe_mathjax: _ext
   config:
     html_show_copyright: false
     html_last_updated_fmt: "%d de %B de %Y"
     language: es
+    # MathJax is served from the site itself so the formulas keep working when
+    # the jsDelivr CDN is slow, blocked by an extension or unavailable offline.
+    # The SVG bundle needs no extra font files.
+    mathjax_path: mathjax/tex-mml-svg.js
     myst_enable_extensions:
       - dollarmath
       - amsmath
       - colon_fence
-    mathjax3_config:
-      options:
-        # MyST marks document sections as mathjax_ignore by default. That
-        # prevents MathJax from processing the formulas in the book.
-        ignoreHtmlClass: "^$"

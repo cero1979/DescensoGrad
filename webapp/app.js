@@ -76,7 +76,7 @@ function drawSurface3D(route, visiblePoints = route.length) {
   surfaceContext.beginPath();
   surfaceContext.arc(minimum.x, minimum.y, 7, 0, 2 * Math.PI);
   surfaceContext.fill();
-  surfaceContext.fillText("mínimo (12, 8, 100)", minimum.x + 12, minimum.y - 8);
+  surfaceContext.fillText("mínimo (12, 8, 100)", minimum.x + 12, minimum.y + 24);
 
   const points = route.slice(0, visiblePoints);
   if (!points.length) return;

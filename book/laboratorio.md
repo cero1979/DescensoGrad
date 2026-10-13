@@ -7,7 +7,7 @@ nivel, la ruta animada sobre el mapa, la superficie 3D y el cambio en el costo.
 <iframe
   src="lab/index.html"
   title="Laboratorio interactivo de descenso del gradiente"
-  style="width:100%; min-height:1050px; border:1px solid #dbe3ef; border-radius:12px;"
+  style="width:100%; min-height:1560px; border:1px solid #dbe3ef; border-radius:12px;"
   loading="lazy"
 ></iframe>
 
