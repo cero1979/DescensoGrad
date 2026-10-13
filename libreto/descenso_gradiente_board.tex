@@ -1,0 +1,434 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,booktabs,array,enumitem,xcolor,fancyhdr}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{.45em}
+\setlength{\headheight}{14pt}
+\pagestyle{fancy}
+\fancyhf{}\lhead{Descenso del gradiente}\rhead{Libreto de tablero}\cfoot{\thepage}
+\title{\textbf{Descenso del gradiente con dos variables}\\[.3em]\large Libreto de tablero para una clase de 2 horas}
+\author{Administración de Empresas --- enfoque intuitivo}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Propósito y agenda}
+Este libreto indica qué escribir, qué preguntar y qué cuenta resolver. El cuaderno
+contiene las dos animaciones incrustadas: una trayectoria en curvas de nivel y otra
+sobre una superficie 3D.
+
+\begin{center}
+\begin{tabular}{p{1.5cm}p{5cm}p{6.3cm}}
+\toprule
+Min. & Bloque & Evidencia de aprendizaje\\
+\midrule
+0--10 & Problema de negocio & Reconoce dos decisiones simultáneas.\\
+10--25 & Mapa de costos & Lee un punto como una política.\\
+25--40 & Dos señales & Distingue $g_x$ y $g_y$.\\
+40--68 & Caso y cuentas & Ejecuta tres rondas completas.\\
+68--73 & Pausa & Explica la idea sin fórmulas.\\
+73--90 & Animaciones & Interpreta trayectoria y altura.\\
+90--105 & Tamaño del paso & Compara estabilidad.\\
+105--115 & Comité empresarial & Resuelve un nuevo punto.\\
+115--120 & Cierre & Formula la idea en sus palabras.\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\newpage
+\section*{Tablero 1 --- Dos decisiones, un objetivo (0--10 min)}
+\textbf{Diga:} ``Una cadena minorista decide cuánto invertir en publicidad y cuánto
+inventario de seguridad mantener. Ambas decisiones afectan el costo. Hoy no elegiremos
+una y congelaremos la otra: las corregiremos juntas.''
+
+\textbf{Escriba en grande:}
+\[
+\boxed{\text{publicidad }x\qquad+\qquad\text{inventario }y
+\qquad\longrightarrow\qquad\text{costo semanal}}
+\]
+\[
+\boxed{\text{MEDIR}\longrightarrow\text{CORREGIR}\longrightarrow\text{REPETIR}}
+\]
+
+\textbf{Pregunte:} ``¿Qué puede pasar si hay poca publicidad? ¿Y si hay demasiado
+inventario?'' No busque una fórmula todavía; recoja intuiciones.
+
+\section*{Tablero 2 --- El paisaje de dos variables (10--25 min)}
+\textbf{Dibuje una montaña vista desde arriba:} dos ejes, varios óvalos concéntricos
+y un punto lejos del centro. Marque el centro como ``menor costo''.
+
+\[
+\begin{array}{c}
+\text{un punto }(x,y)=\text{una política completa}\\
+\text{curva de nivel}=\text{políticas con costo parecido}\\
+\text{centro del mapa}=\text{valle o mejor zona}
+\end{array}
+\]
+
+\textbf{Diga:} ``Con una variable caminábamos en una línea. Con dos variables
+caminamos sobre un mapa. Cada paso puede cambiar publicidad e inventario al mismo
+tiempo.''
+
+\textbf{Pregunte:} ``Si estamos a la derecha del valle y arriba del valle, ¿qué
+deberíamos corregir?'' Respuesta: ambas coordenadas, en las direcciones que bajan.
+
+\newpage
+\section*{Tablero 3 --- El caso y las dos señales (25--40 min)}
+\textbf{Escriba el modelo y traduzca cada término:}
+\[
+\boxed{J(x,y)=(x-12)^2+2(y-8)^2+100}
+\]
+\[
+\begin{array}{c|c}
+x&\text{inversión semanal en publicidad}\\
+y&\text{inventario de seguridad}\\
+100&\text{costo base inevitable}\\
+(x-12)^2,\ 2(y-8)^2&\text{costo por alejarse de la mejor zona}
+\end{array}
+\]
+
+El equipo analítico entrega las señales:
+\[
+\boxed{g_x=2(x-12)}\qquad\boxed{g_y=4(y-8)}
+\]
+
+\textbf{Diga:} ``No vamos a demostrar estas expresiones. Las usaremos como un
+reporte: $g_x$ indica cómo corregir publicidad y $g_y$ cómo corregir inventario.''
+
+\textbf{Escriba la regla completa:}
+\[
+\boxed{x_{\rm nuevo}=x-\eta g_x,\qquad
+y_{\rm nuevo}=y-\eta g_y}
+\]
+\[
+\eta=\text{tamaño del paso: cuánto confiamos en cada corrección}.
+\]
+
+\section*{Derivadas parciales sin miedo (30--40 min)}
+\textbf{Diga:} ``Una derivada parcial responde una pregunta muy concreta:
+¿qué ocurre con el costo si cambio una sola decisión y mantengo la otra fija?''
+
+\textbf{Escriba primero el experimento de publicidad:}
+\[
+\frac{\partial J}{\partial x}
+\quad\Longleftrightarrow\quad
+\text{cambiar un poco }x\text{ mientras dejamos }y\text{ quieta}.
+\]
+Para nuestro modelo, al mirar solo los términos que contienen $x$:
+\[
+\frac{\partial}{\partial x}(x-12)^2=2(x-12),
+\qquad
+\frac{\partial}{\partial x}\bigl(2(y-8)^2\bigr)=0.
+\]
+El segundo término vale cero porque, en este experimento, $y$ no cambia.
+Por eso:
+\[
+\boxed{\frac{\partial J}{\partial x}=2(x-12)}.
+\]
+
+\textbf{Repita el experimento con inventario:}
+\[
+\frac{\partial J}{\partial y}
+\quad\Longleftrightarrow\quad
+\text{cambiar un poco }y\text{ mientras dejamos }x\text{ quieta},
+\]
+\[
+\frac{\partial}{\partial y}\bigl(2(y-8)^2\bigr)=4(y-8),
+\qquad
+\boxed{\frac{\partial J}{\partial y}=4(y-8)}.
+\]
+
+\textbf{Ejemplo hablado:} en $(x,y)=(2,2)$,
+\[
+\frac{\partial J}{\partial x}=-20,\qquad
+\frac{\partial J}{\partial y}=-24.
+\]
+El primer número dice ``aumentar $x$ reduce el costo localmente'' y el segundo
+ dice lo mismo para $y$. Juntos forman el gradiente:
+\[
+\boxed{\nabla J(2,2)=(-20,-24)}.
+\]
+
+\textbf{Compruebe el signo:} señal negativa $\Rightarrow$ al restarla aumentamos esa
+variable; señal positiva $\Rightarrow$ al restarla la reducimos. No se requiere
+demostrar reglas de derivación: basta entender qué decisión se mantiene fija y qué
+decisión se está probando.
+
+\section*{Ruta general del algoritmo}
+\textbf{Escriba y deje visible la fórmula general:}
+\[
+\boxed{\boldsymbol{\theta}_{k+1}
+=\boldsymbol{\theta}_k-\eta\,\nabla J(\boldsymbol{\theta}_k)}
+\]
+En dos variables, $\boldsymbol{\theta}_k=(x_k,y_k)$:
+\[
+\boxed{
+\begin{aligned}
+x_{k+1}&=x_k-\eta\,\frac{\partial J}{\partial x}(x_k,y_k),\\
+y_{k+1}&=y_k-\eta\,\frac{\partial J}{\partial y}(x_k,y_k).
+\end{aligned}}
+\]
+
+\textbf{Escriba la ruta de aplicación:}
+\begin{enumerate}[leftmargin=1.8em]
+\item Definir las decisiones $x$ e $y$.
+\item Definir la función de costo, error o pérdida $J(x,y)$.
+\item Elegir $(x_0,y_0)$ y el tamaño del paso $\eta$.
+\item Calcular las dos derivadas parciales.
+\item Actualizar simultáneamente $x$ e $y$.
+\item Comprobar si el costo disminuyó.
+\item Repetir hasta que la mejora sea menor que una tolerancia
+      $\varepsilon$ o se alcance el máximo de rondas $K_{\max}$.
+\end{enumerate}
+
+\[
+\boxed{\text{ruta}=(x_0,y_0)\longrightarrow(x_1,y_1)
+\longrightarrow(x_2,y_2)\longrightarrow\cdots}
+\]
+\textbf{Diga:} ``Cada punto es una política completa y cada flecha es una
+corrección propuesta por el gradiente.''
+
+\section*{La regla de parada --- ¿cuándo termina?}
+\textbf{Escriba antes de iniciar las rondas:}
+\[
+\boxed{\varepsilon=0.01\qquad K_{\max}=30}
+\]
+\[
+\boxed{
+\text{DETENER si }
+J(x_k,y_k)-J(x_{k+1},y_{k+1})<\varepsilon
+\quad\text{o}\quad k+1=K_{\max}}
+\]
+
+\textbf{Diga:} ``Después de cada ronda medimos cuánto bajó el costo. Terminamos
+si la mejora ya es demasiado pequeña o si agotamos el número máximo de rondas.
+El algoritmo no necesita llegar exactamente al punto ideal.''
+
+\textbf{Final del ejemplo con $\eta=0.10$:}
+\[
+\begin{array}{c|c|c|c}
+\text{ronda}&(x_k,y_k)&J(x_k,y_k)&\text{mejora}\\
+\hline
+19&(11.856,\ 8.000)&100.0208&0.0117\\
+\mathbf{20}&\mathbf{(11.885,\ 8.000)}&\mathbf{100.0133}&
+\mathbf{0.0075<0.01}
+\end{array}
+\]
+\[
+\boxed{\text{FIN en la ronda 20: la mejora es menor que }\varepsilon=0.01}
+\]
+
+\textbf{Aclaración para la demostración corta:} si solo se dibujan ocho rondas,
+escriba:
+\[
+\boxed{\text{FIN de la demostración en la ronda 8: se alcanzó el límite elegido}}
+\]
+\[
+\boxed{\text{El algoritmo podría continuar}}
+\]
+
+\section*{Tablero 4 --- Datos de la empresa (40--43 min)}
+\[
+\boxed{(x_0,y_0)=(2,2)}\qquad\boxed{\eta=0.10}
+\]
+\textbf{Diga:} ``La empresa empieza con poca publicidad y poco inventario. Veamos
+qué recomienda el mapa.''
+
+\newpage
+\section*{Tablero 5 --- Primera ronda, completa y lenta (43--55 min)}
+\textbf{Escriba una línea, pregunte el signo y recién después escriba la siguiente:}
+\[
+\begin{aligned}
+g_x&=2(2-12)=\boxed{-20},&
+g_y&=4(2-8)=\boxed{-24}.\\
+x_1&=2-0.10(-20)=\boxed{4},&
+y_1&=2-0.10(-24)=\boxed{4.4}.
+\end{aligned}
+\]
+
+\textbf{Interpretación:} ambas señales negativas; aumentamos publicidad e inventario.
+
+\textbf{Costo antes:}
+\[
+J(2,2)=(-10)^2+2(-6)^2+100=100+72+100=\boxed{272}.
+\]
+\textbf{Costo después:}
+\[
+J(4,4.4)=(-8)^2+2(-3.6)^2+100
+=64+25.92+100=\boxed{189.92}.
+\]
+\[
+\boxed{\text{reducción}=272-189.92=82.08}
+\]
+
+\textbf{Aclare:} ``Las dos cuentas de actualización ocurren en la misma ronda. No
+usamos $g_x$ para cambiar $y$ ni $g_y$ para cambiar $x$.''
+
+\newpage
+\section*{Tablero 6 --- Segunda y tercera ronda (55--68 min)}
+\textbf{Segunda ronda:}
+\[
+\begin{aligned}
+g_x&=2(4-12)=-16,&g_y&=4(4.4-8)=-14.4,\\
+x_2&=4-0.10(-16)=\boxed{5.6},&
+y_2&=4.4-0.10(-14.4)=\boxed{5.84}.
+\end{aligned}
+\]
+\[
+J(5.6,5.84)=(-6.4)^2+2(-2.16)^2+100
+=40.96+9.3312+100=\boxed{150.2912}.
+\]
+
+\textbf{Tercera ronda: pida que una pareja la complete:}
+\[
+\begin{aligned}
+g_x&=2(5.6-12)=\underline{\hspace{1.8cm}},&
+g_y&=4(5.84-8)=\underline{\hspace{1.8cm}},\\
+x_3&=5.6-0.10(\underline{\hspace{1.3cm}})=\underline{\hspace{1.5cm}},&
+y_3&=5.84-0.10(\underline{\hspace{1.3cm}})=\underline{\hspace{1.5cm}}.
+\end{aligned}
+\]
+\textbf{Solución para revelar:}
+\[
+g_x=-12.8,\quad g_y=-8.64,\quad
+(x_3,y_3)=(\boxed{6.88},\boxed{6.704}).
+\]
+\textbf{Costo de la tercera ronda:}
+\[
+J(6.88,6.704)=(-5.12)^2+2(-1.296)^2+100
+=26.2144+3.359232+100=\boxed{129.573632}.
+\]
+
+\textbf{Pregunte:} ``¿Por qué las correcciones se hacen menores?'' Respuesta:
+las señales se acercan a cero al acercarnos a $(12,8)$.
+
+\section*{Tabla de seguimiento para dejar visible}
+\small
+\begin{center}
+\begin{tabular}{r|rr|rr|r}
+\toprule
+$k$&$x_k$&$y_k$&$g_x$&$g_y$&$J(x_k,y_k)$\\
+\midrule
+0&2.000&2.000&-20.000&-24.000&272.000\\
+1&4.000&4.400&-16.000&-14.400&189.920\\
+2&5.600&5.840&-12.800&-8.640&150.291\\
+3&6.880&6.704&-10.240&-5.184&129.574\\
+4&7.904&7.222&-8.192&-3.110&117.987\\
+\bottomrule
+\end{tabular}
+\end{center}
+\normalsize
+
+\newpage
+\section*{Animaciones del cuaderno (68--90 min)}
+\textbf{Antes de abrir las celdas de animación, escriba:}
+\[
+\text{predicción: después de tres rondas }(x,y)\approx
+(\underline{\hspace{2cm}},\underline{\hspace{2cm}})
+\]
+
+\textbf{Animación 1, mapa:} ``El punto rojo atraviesa curvas de nivel cada vez más
+interiores. Eso significa que el costo baja.''
+
+\textbf{Pregunte:}
+\begin{enumerate}
+\item ¿Qué coordenada cambia más al principio?
+\item ¿Por qué el camino no es recto?
+\item ¿Qué representa el centro verde?
+\end{enumerate}
+
+\textbf{Animación 2, superficie 3D:} ``Ahora vemos la misma trayectoria como una
+montaña. La altura es el costo. El punto no solo se acerca al centro: también baja.''
+
+\textbf{Si no se reproduce en pantalla:} ejecutar de nuevo la celda, abrir el
+cuaderno en Jupyter/VS Code y comprobar que aparece el GIF incrustado. La salida
+incluye texto con la ronda, $(x,y)$ y el costo para seguir la secuencia sin animación.
+
+\section*{Tablero 7 --- Tamaño del paso (90--105 min)}
+\[
+\begin{array}{c|c|c}
+\eta=0.03&\eta=0.10&\eta=0.30\\
+\text{lento}&\text{estable}&\text{agresivo}\\
+\text{muchos intentos}&\text{avance prudente}&\text{puede oscilar}
+\end{array}
+\]
+
+\textbf{Diga:} ``Una empresa puede sobrecorregir: demasiado inventario hoy y muy
+poco mañana. El tamaño del paso representa prudencia.''
+
+\textbf{Regla de diagnóstico:}
+\[
+\begin{array}{ll}
+\text{costo baja establemente}&\Rightarrow\text{continuar}\\
+\text{costo baja casi nada}&\Rightarrow\text{paso quizá muy pequeño}\\
+\text{costo alterna o crece}&\Rightarrow\text{reducir el paso}
+\end{array}
+\]
+
+\newpage
+\section*{Tablero 8 --- Actividad: comité empresarial (105--115 min)}
+\textbf{Escriba:}
+\[
+(x,y)=(18,3),\qquad \eta=0.10.
+\]
+\[
+\begin{aligned}
+g_x&=2(18-12)=\underline{\hspace{1.5cm}},&
+g_y&=4(3-8)=\underline{\hspace{1.5cm}},\\
+x_{\rm nuevo}&=18-0.10(g_x)=\underline{\hspace{1.5cm}},&
+y_{\rm nuevo}&=3-0.10(g_y)=\underline{\hspace{1.5cm}}.
+\end{aligned}
+\]
+
+\textbf{Solución:}
+\[
+g_x=12,\quad g_y=-20,\quad
+(x_{\rm nuevo},y_{\rm nuevo})=(16.8,5).
+\]
+\[
+J(18,3)=36+50+100=\boxed{186}
+\]
+\[
+J(16.8,5)=23.04+18+100=\boxed{141.04};
+\qquad\boxed{\text{reducción}=44.96}.
+\]
+
+\textbf{Recomendación modelo:} ``Reducir publicidad de 18 a 16.8 y aumentar
+inventario de 3 a 5; el costo estimado baja 44.96 unidades.''
+
+\section*{Tablero 9 --- Cierre (115--120 min)}
+\[
+\boxed{\text{dos decisiones}\quad\text{dos señales}\quad\text{un paso conjunto}}
+\]
+\begin{enumerate}
+\item El mapa muestra todas las políticas posibles.
+\item $g_x$ indica cómo corregir publicidad.
+\item $g_y$ indica cómo corregir inventario.
+\item Cada variable se actualiza en su propia ecuación.
+\item Repetimos y verificamos que el costo baje.
+\item Terminamos cuando la mejora es menor que $\varepsilon$ o alcanzamos
+      $K_{\max}$.
+\end{enumerate}
+
+\textbf{Boleto de salida:}
+\[
+\boxed{\text{En este caso }g_x\text{ significa }\underline{\hspace{3cm}}
+\text{ y }g_y\text{ significa }\underline{\hspace{3cm}}.}
+\]
+
+\section*{Lista de control}
+\begin{itemize}[leftmargin=1.5em]
+\item Ejecutar las celdas en orden para que las dos animaciones aparezcan.
+\item Verificar que la salida muestra un GIF, no solo el código.
+\item Explicar derivadas parciales como ``cambiar una decisión y mantener la otra fija''.
+\item No exigir una demostración formal: concentrarse en dirección, cuentas e interpretación.
+\item Mantener la distinción entre costo total $J$ y decisiones $(x,y)$.
+\item Escribir la regla de parada antes de comenzar y anunciar explícitamente
+      por qué terminó el proceso.
+\end{itemize}
+\end{document}

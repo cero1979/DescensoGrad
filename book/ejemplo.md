@@ -64,6 +64,36 @@ columna de llegada es $(10.322,7.899)$, con costo aproximado
 $J=102.835$. La tabla muestra dos ideas importantes: las pendientes se
 acercan a cero y el costo disminuye en cada ronda.
 
+## ¿Cuándo termina la iteración?
+
+En la tabla anterior se hicieron ocho actualizaciones porque ese fue el límite
+elegido para la demostración. Al llegar a $(10.322,7.899)$ el algoritmo
+**todavía no ha convergido**: podría continuar acercándose a $(12,8)$.
+
+Para que el final no quede ambiguo, antes de empezar se fijan dos reglas:
+
+1. detenerse si la reducción del costo entre dos rondas es menor que
+   $\varepsilon=0.01$;
+2. detenerse si se alcanza un máximo de $K_{\max}=30$ rondas.
+
+La comprobación que se hace después de cada actualización es
+
+$$
+J(x_k,y_k)-J(x_{k+1},y_{k+1})<\varepsilon.
+$$
+
+Con $x_0=2$, $y_0=2$ y $\eta=0.10$, la primera vez que esto ocurre es:
+
+| Ronda | Política $(x,y)$ | Costo | Mejora frente a la ronda anterior |
+|---:|---:|---:|---:|
+| 19 | $(11.856,\ 8.000)$ | $100.0208$ | $0.0117$ |
+| **20** | **$(11.885,\ 8.000)$** | **$100.0133$** | **$0.0075<0.01$** |
+
+**Resultado:** el proceso termina en la ronda 20 porque la mejora ya es menor
+que la tolerancia. No termina porque llegue exactamente a $(12,8)$, sino porque
+seguir haciendo rondas aporta una mejora demasiado pequeña para el criterio
+elegido.
+
 ## Qué ocurre si cambiamos el tamaño del paso
 
 El cuaderno también permite comparar tres valores de $\eta$ partiendo de

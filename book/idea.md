@@ -42,7 +42,9 @@ $$
 3. Medir las dos pendientes parciales.
 4. Mover cada decisión en sentido contrario a su pendiente.
 5. Registrar el nuevo punto y su costo.
-6. Repetir mientras la mejora sea útil y estable.
+6. Repetir hasta que
+   $J(x_k,y_k)-J(x_{k+1},y_{k+1})<\varepsilon$ o se alcance el máximo de
+   rondas $K_{\max}$.
 
 La sucesión
 
