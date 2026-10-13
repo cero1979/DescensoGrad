@@ -42,6 +42,40 @@ J(2,2)=272
 J(4,4.4)=189.92.
 $$
 
+## Tabla de las primeras rondas
+
+La siguiente tabla conserva la cuenta que se generaba en el cuaderno. Cada fila
+usa el punto de la ronda anterior, calcula sus dos pendientes y muestra la
+política que se obtiene después de aplicar $\eta=0.10$.
+
+| Ronda | $x$ publicidad | $y$ inventario | $g_x$ | $g_y$ | $x$ siguiente | $y$ siguiente | $J(x,y)$ |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 0 | 2.000 | 2.000 | -20.000 | -24.000 | 4.000 | 4.400 | 272.000 |
+| 1 | 4.000 | 4.400 | -16.000 | -14.400 | 5.600 | 5.840 | 189.920 |
+| 2 | 5.600 | 5.840 | -12.800 | -8.640 | 6.880 | 6.704 | 150.291 |
+| 3 | 6.880 | 6.704 | -10.240 | -5.184 | 7.904 | 7.222 | 129.574 |
+| 4 | 7.904 | 7.222 | -8.192 | -3.110 | 8.723 | 7.533 | 117.987 |
+| 5 | 8.723 | 7.533 | -6.554 | -1.866 | 9.379 | 7.720 | 111.173 |
+| 6 | 9.379 | 7.720 | -5.243 | -1.120 | 9.903 | 7.832 | 107.029 |
+| 7 | 9.903 | 7.832 | -4.194 | -0.672 | 10.322 | 7.899 | 104.454 |
+
+La fila 0 corresponde al punto inicial. La última política que aparece en la
+columna de llegada es $(10.322,7.899)$, con costo aproximado
+$J=102.835$. La tabla muestra dos ideas importantes: las pendientes se
+acercan a cero y el costo disminuye en cada ronda.
+
+## Qué ocurre si cambiamos el tamaño del paso
+
+El cuaderno también permite comparar tres valores de $\eta$ partiendo de
+$(2,2)$. La tabla resume la lectura de esas rutas después de nueve
+actualizaciones:
+
+| Tamaño del paso $\eta$ | Comportamiento visible | Interpretación |
+|---:|---|---|
+| 0.03 | Avance lento y estable | Correcciones prudentes; necesita más rondas. |
+| 0.10 | Avance equilibrado | Buena opción para seguir la cuenta paso a paso. |
+| 0.30 | Oscilación o saltos grandes | Una corrección demasiado intensa puede alejar la ruta del valle. |
+
 ## Interpretación
 
 La empresa no adivinó la solución. Hizo una ronda de medición y corrección.
