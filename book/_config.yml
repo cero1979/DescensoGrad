@@ -27,3 +27,8 @@ sphinx:
       - dollarmath
       - amsmath
       - colon_fence
+    mathjax3_config:
+      options:
+        # MyST marks document sections as mathjax_ignore by default. That
+        # prevents MathJax from processing the formulas in the book.
+        ignoreHtmlClass: "^$"
