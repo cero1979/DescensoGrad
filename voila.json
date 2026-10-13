@@ -1,0 +1,6 @@
+{
+  "VoilaConfiguration": {
+    "template": "lab",
+    "strip_sources": true
+  }
+}
