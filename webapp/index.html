@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laboratorio de descenso del gradiente</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">Python en vivo · código oculto</p>
+      <h1>Descenso del gradiente con dos decisiones</h1>
+      <p>
+        Ajuste los parámetros y observe cómo cambia la ruta de publicidad
+        <strong>x</strong> e inventario <strong>y</strong>.
+      </p>
+    </header>
+
+    <section class="controls" aria-label="Parámetros del algoritmo">
+      <label>
+        <span>Inicio x₀ <output id="x0-value">2.0</output></span>
+        <input id="x0" type="range" min="0" max="24" step="0.5" value="2">
+      </label>
+      <label>
+        <span>Inicio y₀ <output id="y0-value">2.0</output></span>
+        <input id="y0" type="range" min="0" max="16" step="0.5" value="2">
+      </label>
+      <label>
+        <span>Paso η <output id="eta-value">0.10</output></span>
+        <input id="eta" type="range" min="0.01" max="0.50" step="0.01" value="0.10">
+      </label>
+      <label>
+        <span>Iteraciones <output id="iterations-value">8</output></span>
+        <input id="iterations" type="range" min="1" max="20" step="1" value="8">
+      </label>
+    </section>
+
+    <section class="actions">
+      <button id="animate" type="button" disabled>▶ Animar la ruta</button>
+      <button id="reset" type="button">Restablecer</button>
+      <span id="status" role="status">Cargando Python…</span>
+    </section>
+
+    <section class="visualization">
+      <canvas id="chart" width="960" height="560"
+              aria-label="Curvas de nivel y ruta del descenso del gradiente"></canvas>
+      <p id="summary" class="summary"></p>
+    </section>
+
+    <aside>
+      <strong>Fórmula:</strong>
+      θₖ₊₁ = θₖ − η∇J(θₖ).
+      Cada punto representa una política empresarial completa.
+    </aside>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

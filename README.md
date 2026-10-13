@@ -17,7 +17,27 @@ sliders, pero no las celdas de código.
 ## Publicación
 
 GitBook usa `.gitbook.yaml` y `docs/SUMMARY.md` para construir el libro.
-El laboratorio embebido usa Binder + Voilà. Binder puede tardar en iniciar el
-primer entorno; para una clase con muchos estudiantes conviene desplegar el
-mismo notebook en un servicio Voilà persistente y reemplazar la URL del embed
-en `docs/02-laboratorio.md`.
+
+### Conectar GitBook
+
+1. Cree un Space en GitBook y elija la integración con GitHub.
+2. Seleccione `cero1979/DescensoGrad` y la rama `main`.
+3. Use la **raíz del repositorio (`/`)** como ruta de sincronización.
+
+No seleccione `docs/` en la integración: `.gitbook.yaml`, ubicado en la raíz,
+ya declara `root: ./docs`.
+
+### Aplicación de Python en vivo
+
+El laboratorio embebido usa Pyodide y se publica en GitHub Pages mediante
+`.github/workflows/pages.yml`. En la configuración del repositorio, seleccione
+**Settings → Pages → Source: GitHub Actions**. La URL esperada es:
+
+`https://cero1979.github.io/DescensoGrad/`
+
+Binder + Voilà queda disponible como alternativa externa. Voilà oculta las
+celdas, pero Binder impide incrustar la aplicación en un dominio distinto.
+
+> “Ocultar” significa que el estudiante no ve el código en la interfaz. Como
+> el repositorio es público, el código fuente continúa siendo accesible en
+> GitHub y no debe contener secretos.
