@@ -1,0 +1,12 @@
+format: jb-book
+root: intro
+
+parts:
+  - caption: Fundamentos
+    chapters:
+      - file: idea
+      - file: ejemplo
+  - caption: Explorar
+    chapters:
+      - file: laboratorio
+      - file: guia

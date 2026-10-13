@@ -1,11 +1,11 @@
-# 4. Guía para presentar
+# Guía para presentar
 
 ## Secuencia sugerida
 
 ### 1. Pregunta de apertura
 
-“Si una empresa prueba una política y el costo aumenta, ¿qué debería cambiar en
-el siguiente intento?”
+> Si una empresa prueba una política y el costo aumenta, ¿qué debería cambiar
+> en el siguiente intento?
 
 ### 2. Dibujar el mapa
 
@@ -25,8 +25,9 @@ Tradúzcala como:
 
 ### 4. Usar el laboratorio
 
-Pida a los estudiantes predecir la ruta antes de mover los sliders. Compare
-después un paso pequeño con un paso cercano al límite de estabilidad.
+Pida a los estudiantes predecir la ruta antes de mover los sliders. Compare un
+paso pequeño con un paso cercano al límite de estabilidad y use el botón
+**Animar la ruta**.
 
 ### 5. Cerrar con tres ideas
 
@@ -36,6 +37,6 @@ después un paso pequeño con un paso cercano al límite de estabilidad.
 
 ## Qué no hace el ejemplo
 
-El modelo es deliberadamente sencillo. En una empresa real se estiman costos con
-datos, existen restricciones y puede haber varios mínimos. El método organiza la
-mejora; no sustituye el juicio gerencial.
+El modelo es deliberadamente sencillo. En una empresa real se estiman costos
+con datos, existen restricciones y puede haber varios mínimos. El método
+organiza la mejora; no sustituye el juicio gerencial.

@@ -1,9 +1,9 @@
-# 1. La idea en un mapa
+# La idea en un mapa
 
 ## Una decisión o dos decisiones
 
 Con una decisión, imaginamos una curva de costos. Con dos decisiones, cada
-política empresarial es un punto `(x, y)` en un mapa:
+política empresarial es un punto $(x,y)$ en un mapa:
 
 - desplazarse horizontalmente cambia la publicidad;
 - desplazarse verticalmente cambia el inventario;
@@ -16,8 +16,8 @@ La pregunta práctica es:
 
 ## La fórmula general
 
-Si `θ` reúne todas las decisiones y `J(θ)` es el costo, el descenso del
-gradiente aplica:
+Si $\boldsymbol{\theta}$ reúne todas las decisiones y
+$J(\boldsymbol{\theta})$ es el costo:
 
 $$
 \boldsymbol{\theta}_{k+1}
@@ -28,17 +28,17 @@ Para dos decisiones:
 
 $$
 \begin{aligned}
-x_{k+1} &=
-x_k-\eta\,\frac{\partial J}{\partial x}(x_k,y_k),\\
-y_{k+1} &=
-y_k-\eta\,\frac{\partial J}{\partial y}(x_k,y_k).
+x_{k+1}
+&=x_k-\eta\,\frac{\partial J}{\partial x}(x_k,y_k),\\
+y_{k+1}
+&=y_k-\eta\,\frac{\partial J}{\partial y}(x_k,y_k).
 \end{aligned}
 $$
 
 ## La ruta de aplicación
 
 1. Definir las decisiones y el indicador que se quiere reducir.
-2. Elegir una política inicial `(x₀, y₀)`.
+2. Elegir una política inicial $(x_0,y_0)$.
 3. Medir las dos pendientes parciales.
 4. Mover cada decisión en sentido contrario a su pendiente.
 5. Registrar el nuevo punto y su costo.
@@ -51,13 +51,13 @@ $$
 \longrightarrow(x_2,y_2)\longrightarrow\cdots
 $$
 
-es la **ruta** del algoritmo. Cada punto es una política; cada flecha es una
+es la **ruta** del algoritmo. Cada punto es una política y cada flecha es una
 corrección.
 
 ## Derivadas parciales, sin miedo
 
-La derivada parcial respecto de `x` pregunta qué ocurre si cambiamos publicidad
-manteniendo fijo el inventario. La derivada parcial respecto de `y` hace el
+La derivada parcial respecto de $x$ pregunta qué ocurre si cambiamos publicidad
+manteniendo fijo el inventario. La derivada parcial respecto de $y$ hace el
 experimento contrario.
 
 No necesitamos demostrar formalmente las reglas para interpretar el método:

@@ -1,42 +1,34 @@
-# Descenso del gradiente — GitBook
+# Descenso del gradiente — Jupyter Book
 
-La documentación publicada se encuentra en `docs/`.
+Libro visual en el formato de
+[Jupyter Book](https://jupyterbook.org/), con navegación lateral, capítulos y
+un laboratorio de Python en vivo.
 
-## Desarrollo local
-
-Para probar el laboratorio ocultando el código:
+## Construir el libro localmente
 
 ```bash
 python -m pip install -r requirements.txt
-voila descenso_gradiente_2_variables_autocontenido.ipynb
+jupyter-book build book
+cp -R webapp book/_build/html/lab
+python -m http.server --directory book/_build/html 8000
 ```
 
-Abra la URL que muestra Voilà. La aplicación presenta las gráficas y los
-sliders, pero no las celdas de código.
+Abra `http://localhost:8000/intro.html`.
 
 ## Publicación
 
-GitBook usa `.gitbook.yaml` y `docs/SUMMARY.md` para construir el libro.
-
-### Conectar GitBook
-
-1. Cree un Space en GitBook y elija la integración con GitHub.
-2. Seleccione `cero1979/DescensoGrad` y la rama `main`.
-3. Use la **raíz del repositorio (`/`)** como ruta de sincronización.
-
-No seleccione `docs/` en la integración: `.gitbook.yaml`, ubicado en la raíz,
-ya declara `root: ./docs`.
-
-### Aplicación de Python en vivo
-
-El laboratorio embebido usa Pyodide y se publica en GitHub Pages mediante
-`.github/workflows/pages.yml`. En la configuración del repositorio, seleccione
-**Settings → Pages → Source: GitHub Actions**. La URL esperada es:
+El libro y el laboratorio Pyodide se publican en GitHub Pages mediante
+`.github/workflows/pages.yml`. La URL esperada es:
 
 `https://cero1979.github.io/DescensoGrad/`
 
-Binder + Voilà queda disponible como alternativa externa. Voilà oculta las
-celdas, pero Binder impide incrustar la aplicación en un dominio distinto.
+La fuente del libro está en `book/`; `_config.yml` controla su apariencia y
+`_toc.yml` define la navegación lateral. Binder + Voilà queda disponible como
+alternativa externa para ejecutar el cuaderno completo:
+
+```bash
+voila descenso_gradiente_2_variables_autocontenido.ipynb
+```
 
 > “Ocultar” significa que el estudiante no ve el código en la interfaz. Como
 > el repositorio es público, el código fuente continúa siendo accesible en
